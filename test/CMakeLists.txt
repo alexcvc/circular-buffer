@@ -6,7 +6,8 @@ file(GLOB SOURCE_FILES *.cpp)
 foreach (SOURCE_PATH ${SOURCE_FILES})
 
   get_filename_component(TARGET_NAME ${SOURCE_PATH} NAME_WE)
-  add_executable(${TARGET_NAME} ${SOURCE_PATH})
+  add_executable(${TARGET_NAME} ${SOURCE_PATH}
+     test_main.cpp)
 
   ## link with library
   target_link_libraries(${TARGET_NAME} Threads::Threads)
