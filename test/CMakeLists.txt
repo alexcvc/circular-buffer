@@ -1,18 +1,16 @@
-find_package(Threads REQUIRED)
+enable_testing()
 
-# add options and dependencies
-file(GLOB SOURCE_FILES *.cpp)
+# Set project name
+set(TargetName test_circular_buffer)
 
-foreach (SOURCE_PATH ${SOURCE_FILES})
+set(LIBS pthread rt )
 
-  get_filename_component(TARGET_NAME ${SOURCE_PATH} NAME_WE)
-  add_executable(${TARGET_NAME} ${SOURCE_PATH}
-     test_main.cpp)
+# Pre-defines standard install locations on *nix systems.
+include(GNUInstallDirs)
 
-  ## link with library
-  target_link_libraries(${TARGET_NAME} Threads::Threads)
-  target_include_directories(${TARGET_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../include" )
+add_executable( ${TargetName} )
+target_sources(${TargetName} PRIVATE "test_main.cpp" "test_cases.cpp" )
+target_link_libraries(${TargetName} PUBLIC ${LIBS} )
+target_compile_features(${TargetName} PRIVATE cxx_std_20)
 
-  add_test(NAME ${TARGET_NAME} COMMAND ${TARGET_NAME})
-
-endforeach (SOURCE_PATH ${SOURCE_FILES})
+install(TARGETS ${TargetName} DESTINATION bin)

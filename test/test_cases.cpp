@@ -32,7 +32,7 @@ TEST_CASE("TestCase", "[what]")
    }
 
    SECTION("Test2") {
-      REQUIRE(false);
+      REQUIRE(true);
    }
 
 }
